@@ -1,26 +1,25 @@
-const router = require('express').Router();
-let Users = require('../models/users.model');
+const express = require('express');
+const router = express.Router();
+let User = require('../models/user');
 
-router.route('/').get((req,res) => {
+router.get('/', (req,res) => {
     User.find()
     .then(users => res.json(users))
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
-router.route('/add').post((req, res) => {
-const username = req.body.username;
-const loanrequest = Number(req.body.loanrequest);
-const address = req.body.Address;
-
-const newUser = new Users({
-    username,
-    loanrequest,
-    address
+router.post('/', (req, res) => {
+const newUser = new User({
+    username: req.body.username
 });
 
 newUser.save()
-.then(()=> res.json('User added!'))
-.catch(err => res.status(400).json('Error: ' + err));
+.then(data => {
+    res.json(data);
+})
+.catch(err => {
+res.status(400).json('Error: ' + err);
+});
 });
 
 module.exports = router;

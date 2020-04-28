@@ -1,13 +1,14 @@
-const router = require('express').Router();
-let Information = require('../models/Information.model');
+const express = require('express');
+const router = express.Router();
+const Information = require('../models/information');
 
-router.route('/').get((req, res) => {
+router.get('/',(req, res) => {
 Information.find()
 .then(Information => res.json(Information))
 .catch(err => res.status(400).json('Error' + err));
 });
 
-router.route('/add').post((req,res) => {
+router.post('/add', (req,res, next) => {
 const job = req.body.Job;
 const creditScore = Number(req.body.CreditScore);
 const propertyAddress = req.body.PropertyAddress;
@@ -25,3 +26,5 @@ newInfo.save()
 .then(() => res.json('Information Added!'))
 .catch(err => res.status(400).json('Error' + err));
 });
+
+module.exports = router;
