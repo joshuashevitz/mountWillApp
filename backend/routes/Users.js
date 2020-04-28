@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-let User = require('../models/user');
+let User = require('../models/user.model');
 
 router.get('/', (req,res) => {
     User.find()
@@ -8,9 +8,11 @@ router.get('/', (req,res) => {
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
-router.post('/', (req, res) => {
+router.post('/add', (req, res) => {
 const newUser = new User({
-    username: req.body.username
+    username: req.body.username,
+    loanrequest: Number(req.body.loanrequest),
+    address: req.body.address
 });
 
 newUser.save()

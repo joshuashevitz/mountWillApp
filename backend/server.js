@@ -1,17 +1,18 @@
 const express = require('express');
+const app = express();
 const cors = require('cors');
 const mongoose = require('mongoose');
-const bodyparser = require('body-parser');
+const bodyParser = require('body-parser');
 
 require('dotenv').config();
 
 
-const app = express();
+
 const port = process.env.PORT || 5000;
 
 app.use(cors());
 app.use(express.json());
-app.use(bodyparser.json());
+app.use(bodyParser.json());
 
 const uri = process.env.ATLAS_URI;
 mongoose.connect(uri, {
@@ -23,11 +24,15 @@ const connection = mongoose.connection;
 connection.once('open', () => {
     console.log("MongoDB database connection established successfully");
 })
-const usersRouter = require('./routes/users');
-const informationRouter = require('./routes/information');
+const usersRouter = require('./routes/users.js');
+const informationRouter = require('./routes/information.js');
 
 app.use('/users', usersRouter);
 app.use('/information', informationRouter);
+
+app.get('/', (req, res)=> {
+    res.send('foobar');
+})
 
 app.listen(port, () => {
     console.log(`server is running on port: ${port}`);
