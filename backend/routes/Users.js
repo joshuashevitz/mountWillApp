@@ -12,11 +12,12 @@ router.post('/add', (req, res) => {
     const username= req.body.username;
     const loanrequest= Number(req.body.loanrequest);
     const address= req.body.address;
-
+    const email = req.body.address;
     const newUser = new User ({
         username,
         loanrequest,
-        address
+        address,
+        email
      });
 
         newUser.save()
