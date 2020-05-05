@@ -2,9 +2,12 @@
   "name": "backend",
   "version": "1.0.0",
   "description": "",
+  "engines": {
+    "node": "12.16.2"
+    },
   "main": "index.js",
   "scripts": {
-    "start": "nodemon app.js"
+    "start": "node backend/server.js"
   },
   "keywords": [],
   "author": "",
