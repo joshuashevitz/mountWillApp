@@ -1,8 +1,9 @@
-import React, {useState} from 'react';
+import React, { Component} from 'react';
 import axios from "axios";
 import styled from 'styled-components';
 import MainLayout from './MainLayout';
 import {Form, FormGroup, Label, Input, Row, Col, Button, Container, CustomInput} from 'reactstrap';
+
 
 const InputBox=styled(Input)`
 width: 500px;
@@ -24,41 +25,77 @@ height: 90vh;
 justify-content: center;
 align-items: center;
 display:flex;
+@media and screen (max-width: 50rem) {
+    overflow: scroll;
+}
 `;
 
-function Apply() {
-    const [applicant, setApplicant] = useState("");
-    const [address, setAddress] = useState("");
-    const [loanAmount, setLoanAmount] = useState(0);
+export default class Apply extends Component {
+    constructor(props) {
+        super(props);
+        this.onChangeAddress = this.onChangeAddress.bind(this);
+        this.onChangeApplicant = this.onChangeApplicant.bind(this);
+        this.onChangeLOanRequest = this.onChangeLOanRequest.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
 
-  const handleChange = ({target})=> {
-    if(target.name === "username") setApplicant(target.value);
-    else if(target.name === "address") setAddress(target.value);
-    else if(target.name === "loanAmount") setLoanAmount(target.value);
-    else console.error("error changing Applicant");
-  }
-  const handleSubmit = (e) => {
-    e.preventDefault() 
-    console.log(applicant, loanAmount, address);
+        this.state = {
+            username: '',
+            loanrequest: 0,
+            address: '',
+            users:[]
+        }
+    }
 
-    axios
-    .post('http://localhost:5000/users/add/',{applicant, loanAmount, address}) 
-    .then(res => console.log(res.applicant, res.loanAmount, res.address))
-    .catch(err => console.log("Error of type: " + err))
-}
-  
-  
+    componentDidMount() {
+        this.setState({
+            users: [''],
+            username: ''
+        })
+    }
+        onChangeApplicant(e) {
+            this.setState({
+                username: e.target.value
+            });
+        }
+        onChangeLOanRequest(e) {
+            this.setState({
+            loanrequest: e.target.value    
+            });
+        }
+        onChangeAddress(e) {
+            this.setState({
+               address: e.target.value 
+            });
+        }
+        onSubmit(e) {
+            e.preventDefault();
+            const applicant = {
+                username:this.state.username,
+                loanrequest:this.state.loanrequest,
+                address:this.state.address
+            }
+            console.log(applicant);
+            axios.post('http://localhost:5000/users/add', applicant)
+            .then(res => console.log(res.data));
+            
+            this.setState({
+                username: '',
+                loanrequest: 0, 
+                address: ''
+            })
+        }
 
 
 
 
+render() {
    return (
     <MainLayout title="Application page" color="background-color: -webkit-linear-gradient(70deg, #252c68 40%, white 40%);
     background: -o-linear-gradient(70deg, blue 40%, white 40%);
     background: -moz-linear-gradient(70deg, Blue 40%, white 40%);
     background: linear-gradient(70deg, blue 40%, white 40%);;">
 <ApplicationForm>
-    <FormDesign className="login-form" onSubmit={handleSubmit}>
+    <FormDesign className="login-form" onSubmit={this.onSubmit}>
       <h1>Application Form</h1>
       
       <Row form>
@@ -68,8 +105,8 @@ function Apply() {
                 <InputBox type ="text" 
                 name="username"
                 placeholder="Applicant Name"
-                value ={applicant} 
-                onChange={handleChange} required
+                value ={this.state.username} 
+                onChange={this.onChangeApplicant} required
                 className="form-control"/>
       </FormGroup>
       </Col>
@@ -83,20 +120,19 @@ function Apply() {
 							id="address"
 							name="address"
 							placeholder="123 main street"
-							onChange={handleChange}
-                            value={address}
+							onChange={this.onChangeAddress}
+                            value={this.state.address}
                             className="form-control"
 						/>
           </FormGroup>
-        
           <FormGroup>
           <Label for="loanAmount">Amount of Loan Request</Label>
 				<Input
 							type="text"
 							name="loanAmount"
 							placeholder="Loan Request"
-							onChange={handleChange}
-                            value={loanAmount}
+							onChange={this.onChangeLOanRequest}
+                            value={this.state.loanrequest}
                             className="form-control"
 						/>
           </FormGroup>
@@ -149,6 +185,5 @@ function Apply() {
 }
     </MainLayout>
     );
+    }
 }
-
-export default Apply;

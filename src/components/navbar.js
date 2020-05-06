@@ -3,7 +3,7 @@ import { Collapse,Navbar,NavbarToggler,NavbarBrand,Nav,NavItem,NavLink,Uncontrol
 import styled from 'styled-components';
 
 const StyleNav = styled(Navbar)`
-
+height: 4rem;
 `;
 
 const Navigation = () => {
@@ -18,9 +18,6 @@ const Navigation = () => {
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-auto" navbar>
-            <NavItem>
-              <NavLink href="/EditUser">Edit User</NavLink>
-            </NavItem>
             <NavItem>
               <NavLink href="/UserList">User List</NavLink>
             </NavItem>
