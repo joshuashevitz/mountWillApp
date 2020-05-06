@@ -127,7 +127,7 @@ const App = () => {
 
 	<h1>Mount Wilson Capital</h1>
  	<section> 
-    	<ScaledImage src="/images/front_page.jpg" />
+    	<ScaledImage src="/images/frontpage.jpg" />
       </section>
       <SectionAbout>
 		  <a href='/Apply' >
