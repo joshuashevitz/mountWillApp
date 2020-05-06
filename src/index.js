@@ -13,7 +13,7 @@ ReactDOM.render(
       
       <Route path="/" exact component={App} />
         
-      <Route exact path="/Apply" component={Apply} />
+      <Route path="/Apply" component={Apply} />
      
       <Route exact path="/contactUs" component={contactUs} />
   
