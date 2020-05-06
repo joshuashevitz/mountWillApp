@@ -9,16 +9,13 @@ router.get('/', (req,res) => {
 
 router.post('/add', (req, res) => {
 
-    const username= req.body.username;
-    const loanrequest= Number(req.body.loanrequest);
-    const address= req.body.address;
-    const email = req.body.address;
-    const newUser = new User ({
-        username,
-        loanrequest,
-        address,
-        email
-     });
+    const userData = {
+        username: req.body.username,
+        loanrequest: Number(req.body.loanrequest),
+        address: req.body.address,
+        email: req.body.address
+    }
+    const newUser = new User(userData);
 
         newUser.save()
         .then(() => res.json('Application Added!'))
