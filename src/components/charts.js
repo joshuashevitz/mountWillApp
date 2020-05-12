@@ -38,29 +38,32 @@ class charts extends Component {
                 address: res.data.address,
                 email: res.data.email,
                 users:[],
-                    chartData:  {
-                        labels: ['Expected Average', 'Applicant Info'],
-                        datasets:[
-                            {
-                                label: ['Loan Requests'],
-                                data: [1000000, res.data.loanrequest],
-                                backgroundColor:[
-                                    'rgba(255, 99, 132, 0.6)',
-                                    'rgba(54, 162, 235, 0.6)',
-                                    'rgba(255, 206, 86, 0.6)',
-                                    'rgba(75, 192, 192, 0.6)',
-                                    'rgba(153, 102, 255, 0.6)',
-                                    'rgba(255, 159, 64, 0.6)',
-                                    'rgba(255, 99, 132, 0.6)'
-                                  ],
-                                  borderWidth:1,
-                                  borderColor: '#777',
-                                  hoverBorderWidth:3,
-                                  hoverBorderColor:'#000'
-                            },
-                         
-                        ]
-                    },
+                chartData:  {
+                    labels: ['Expected Average', 'Applicant Info'],
+                    datasets:[
+                        {
+                            label: ['Loan Expectation vs Loan Amount Requested'],
+                            data: [1000000, res.data.loanrequest],
+                            backgroundColor:[
+                                'rgba(255, 99, 132, 0.6)',
+                                'rgba(54, 162, 235, 0.6)',
+                                'rgba(255, 206, 86, 0.6)',
+                                'rgba(75, 192, 192, 0.6)',
+                                'rgba(153, 102, 255, 0.6)',
+                                'rgba(255, 159, 64, 0.6)',
+                                
+                                
+                              ],
+                              height:50,
+                              width: 25,
+                              borderWidth:1,
+                              borderColor: '#777',
+                              hoverBorderWidth:3,
+                              hoverBorderColor:'#000'
+                        },
+        
+                    ]
+                },
                     chartData2:  {
                         labels: ['Expected Average', 'Applicant Info'],
                         datasets:[
@@ -139,13 +142,14 @@ class charts extends Component {
             <div className='charts'>
                 <Bar 
                 data={this.state.chartData} 
-                width={100}
-                height={50}
+                width={50}
+                height={75}
                 options={{
                     maintainAspectRatio: false,
                     borderWidth: 1,
                     scales: {
-                        yAxes: [{
+                        yAxes: [{ 
+                            barPercentage: 0.1,
                             ticks: {
                                 beginAtZero: true
                             }
@@ -155,7 +159,7 @@ class charts extends Component {
                        display: this.props.displayTitle,
                        text: 'Applicants Loan Request',
                        fontSize: 25,
-                      maintainAspectRatio: false
+                      
                    },
                    legend: {
                        display:this.props.displayLegend,
@@ -179,11 +183,7 @@ class charts extends Component {
                     maintainAspectRatio: false,
                     borderWidth: 1,
                     scales: {
-                        yAxes: [{
-                            ticks: {
-                                beginAtZero: true
-                            }
-                        }]
+                       
                     },
                     title: {
                        display: this.props.displayTitle,

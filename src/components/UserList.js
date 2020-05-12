@@ -8,7 +8,7 @@ const Applicant = props => (
     <td>{props.users.username}</td>
     <td>{props.users.loanrequest}</td>
     <td>
-      <Link to={"/charts2/"+props.users._id}>Edit Application Info</Link> | <button href="#" onClick={() => { props.deleteUsers(props.users._id) }}>delete</button> | <Link to={"/charts/"+props.users._id}>Generate Risk Chart</Link>
+      <Link to={"/edit/"+props.users._id}>Edit Application Info</Link> | <button href="#" onClick={() => { props.deleteUsers(props.users._id) }}>delete</button> | <Link to={"/charts/"+props.users._id}>Generate Risk Chart</Link>
     </td>
   </tr>
 )

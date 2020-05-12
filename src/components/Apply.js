@@ -222,7 +222,7 @@ render() {
           <Label for="exampleCheckbox">Radios</Label>
         <div>
           <CustomInput type="radio" id="exampleCustomRadio" name="customRadio" label="Do not own the property to flip" />
-          <CustomInput type="radio" id="exampleCustomRadio2" name="customRadio" label="Own the roperty To flip" />
+          <CustomInput type="radio" id="exampleCustomRadio2" name="customRadio" label="Own the property To flip" />
         </div>
       </FormGroup>
          </Row>
