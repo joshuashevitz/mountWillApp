@@ -1,90 +1,93 @@
-import React, {useState, useEffect} from 'react';
-import {Container} from 'reactstrap';
 import MainLayout from './MainLayout';
 import axios from 'axios';
 import styled from 'styled-components';
-const TableofUsers = styled(Container)`
-width: 100vw;
-height: 100vh;
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import charts from './charts';
 
-justify-content: center;
-align-item: center:
-`;
-const RowDesign = styled.tr`
-border-bottom: 1px solid #dddddd;
-nth-child(2) {bacground-color: #f3f3f3}
-`;
-const DataCell = styled.td`
-font-size: 2rem;
-padding: 12px 15px;
-font-weight: bold; 
-`;
-const TableHeaders = styled.th`
-padding: 12px 15px;
-background-color: slateblue;
+const Applicant = props => (
+  <tr>
+    <td>{props.users.username}</td>
+    <td>{props.users.loanrequest}</td>
+    <td>
+      <Link to={"/charts2/"+props.users._id}>generate risk chart</Link> | <a href="#" onClick={() => { props.deleteUsers(props.users._id) }}>delete</a>
+    </td>
+  </tr>
+)
 
-`;
-const TableDesign = styled.thead`
-font-size: 2.5rem;
-`;
-const Design = styled.table`
-background-color: white;
-border-collapse: collapse;
-border: 1px solid black;
-padding: 10px;
-box-shadow: 15px 25px #888888;
-overflow: scroll;
-opacity: .8;
-height: 90vh;
-border-bottom: 2px solid slateblue;
-`;
-const UserList =()=> {
 
-    const [users, setUsers] = useState([]);
-    useEffect( () => {
-       axios.get(`http://localhost:5000/users/`)
-       .then(({data})=> { setUsers(data);
-       })
-       .catch((error) => {
-           console.log(error);
-       })
-        }, []);
 
-        const renderTable = () => {
-            return users.map(user => {
-              return (
-                <RowDesign>
-                  <DataCell>{user.username}</DataCell>
-                  <DataCell>{user.address}</DataCell> 
-                  <DataCell>{user.loanrequest}</DataCell> 
-                </RowDesign>
-              )
-            })
-          }
-
-    return (
-        <MainLayout title="Application page" color="background-color: -webkit-linear-gradient(70deg, #252c68 40%, white 40%);
-    background: -o-linear-gradient(70deg, blue 40%, white 40%);
-    background: -moz-linear-gradient(70deg, Blue 40%, white 40%);
-    background: linear-gradient(70deg, blue 40%, white 40%);;">
-            
-            <TableofUsers>
-                <h1> Applicants</h1>
-            <Design>
-                <TableDesign> 
-                    <tr>
-                        <TableHeaders>Applicant Names</TableHeaders>
-                        <TableHeaders>Address </TableHeaders>
-                        <TableHeaders>loan Amount</TableHeaders>
-                    </tr>
-                </TableDesign>
-                <tbody>{renderTable()}</tbody> 
-               
-            </Design>
-            </TableofUsers>
-        </MainLayout>
-    );
+export default class UserList extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {chartData:{ 
+        labels: ['Credit Score', 'Loan Request'],
+    datasets:[
+        {
+            label: ['Credit Scores','Loan Requests'],
+            data: [],
+            backgroundColor:[
+                'rgba(255, 99, 132, 0.6)',
+                'rgba(54, 162, 235, 0.6)',
+                'rgba(255, 206, 86, 0.6)',
+                'rgba(75, 192, 192, 0.6)',
+                'rgba(153, 102, 255, 0.6)',
+                'rgba(255, 159, 64, 0.6)',
+                'rgba(255, 99, 132, 0.6)'
+              ]
+        }
+    ]}
 }
+    this.deleteUsers = this.deleteUsers.bind(this)
 
-export default UserList;
+    this.state = {users: []};
+  }
+  
+  componentDidMount() {
+    axios.get('http://localhost:5000/users/')
+      .then(response => {
+        this.setState({ users: response.data })
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+  }
 
+  deleteUsers(id) {
+    axios.delete('http://localhost:5000/users/'+id)
+      .then(response => { console.log(response.data)});
+
+    this.setState({
+      users: this.state.users.filter(el => el._id !== id)
+    })
+  }
+
+  
+
+  UsersList() {
+    return this.state.users.map(currentusers => {
+      return <Applicant users={currentusers} deleteUsers={this.deleteUsers} key={currentusers._id}/>;
+    })
+  }
+
+  render() {
+    return (
+    <MainLayout>
+      <div>
+        <h3>Applicant Chart</h3>
+        <table className="table">
+          <thead className="thead-light">
+            <tr>
+              <th>Username</th>
+              <th>Loan Requested</th>
+            </tr>
+          </thead>
+          <tbody>
+            { this.UsersList() }
+          </tbody>
+        </table>
+      </div>
+    </MainLayout>
+    )
+  }
+}

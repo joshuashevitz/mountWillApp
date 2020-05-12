@@ -2,6 +2,7 @@ import React, { Component} from 'react';
 import axios from "axios";
 import styled from 'styled-components';
 import MainLayout from './MainLayout';
+import DatePicker from 'react-datepicker';
 import {Form, FormGroup, Label, Input, Row, Col, Button, Container, CustomInput} from 'reactstrap';
 
 
@@ -36,12 +37,16 @@ export default class Apply extends Component {
         this.onChangeAddress = this.onChangeAddress.bind(this);
         this.onChangeApplicant = this.onChangeApplicant.bind(this);
         this.onChangeLOanRequest = this.onChangeLOanRequest.bind(this);
+        this.onChangeCreditScore = this.onChangeCreditScore.bind(this);
+        this.onChangeEmailAddress = this.onChangeEmailAddress.bind(this);
+        this.onChangeDate = this.onChangeDate.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
-
         this.state = {
             username: '',
             loanrequest: 0,
             address: '',
+            email: '',
+            date: new Date(),
             users:[]
         }
     }
@@ -62,31 +67,54 @@ export default class Apply extends Component {
             loanrequest: e.target.value    
             });
         }
+        onChangeDate(date) {
+          this.setState({
+            date: date
+          });
+        }
         onChangeAddress(e) {
             this.setState({
                address: e.target.value 
             });
+        } 
+        onChangeEmailAddress(e) {
+          this.setState({
+            email: e.target.value
+          });
         }
+        onChangeCreditScore(e) {
+          this.setState({
+             creditscore: e.target.value 
+          });
+      } 
         onSubmit(e) {
             e.preventDefault();
             const applicant = {
                 username:this.state.username,
                 loanrequest:this.state.loanrequest,
-                address:this.state.address
-            }
+                address:this.state.address,
+                email:this.state.email,
+                creditscore:this.state.creditscore,
+                date:this.state.date
+           }
+            
+
             console.log(applicant);
             axios.post('http://localhost:5000/users/add', applicant)
             .then(res => console.log(res.data));
-            
+
+
             this.setState({
                 username: '',
                 loanrequest: 0, 
-                address: ''
-            })
+                address: '',
+                email: '',
+                creditscore: 0,
+                date: ''
+           })
+           console.log(applicant.email);
+           
         }
-
-
-
 
 render() {
    return (
@@ -121,8 +149,8 @@ render() {
 							name="address"
 							placeholder="123 main street"
 							onChange={this.onChangeAddress}
-                            value={this.state.address}
-                            className="form-control"
+              value={this.state.address}
+              className="form-control"
 						/>
           </FormGroup>
           <FormGroup>
@@ -133,6 +161,15 @@ render() {
 							placeholder="Loan Request"
 							onChange={this.onChangeLOanRequest}
                             value={this.state.loanrequest}
+                            className="form-control"
+						/>
+             <Label for="loanAmount">Please Enter Current Credit Score</Label>
+				<Input
+							type="text"
+							name="creditScore"
+							placeholder="Credit Score"
+							onChange={this.onChangeCreditScore}
+                            value={this.state.creditscore}
                             className="form-control"
 						/>
           </FormGroup>
@@ -147,6 +184,17 @@ render() {
           placeholder="date placeholder"
         />
       </FormGroup>
+      <FormGroup>
+          <Label for="address">Email</Label>
+						<Input
+							type="email"
+							name="email"
+							placeholder="enter email here"
+							onChange={this.onChangeEmailAddress}
+              value={this.state.email}
+              className="form-control"
+						/>
+          </FormGroup>
       <Row form>
         <Col md={6}>
           <FormGroup>

@@ -73,10 +73,13 @@ height: 620px;
 `;
 const AboutHead = styled.h1 `
 color: white;
-margin: 2rem;
 margin-bottom: -2.3rem;
-margin-left: 15.5rem;
+margin-left: 10rem;
 width: 15rem;
+@media screen and(max-width: 50rem) {
+	position: absolute;
+	margin-left: 3rem;
+}
 `;
 const AboutDiv=styled.div`
 width: 30vw;
@@ -90,8 +93,9 @@ color: white;
 font-size: 1.2rem;
 float:left;
 font-style: italic;
-@media screen and (max-width: 50rem) {
-	font-size:1rem;
+overflow: scroll;
+@media and screen (max-width: 50rem) {
+	font-size:20px;
 	}
 `;
 
@@ -232,7 +236,7 @@ Horace. The Odes and Carmen Saeculare of Horace. John Conington. trans. London. 
 			</Row>
 	  </ContactPage>
 	  	<footer style={{backgroundColor:'blue',height:'50px',fontSize: '30px',borderRadius:''}}>
-			&copy; {new Date().getFullYear()} Copyright: <a href="https://www.mowils.heroku.com"> mountwilsoncapital.heroku.com </a>
+			&copy; {new Date().getFullYear()} Copyright: <a href="https://mountwilsoncapital.netlify.app"> MountWilsonCapital.netlify.app </a>
 		</footer>
 	  </Router>
     </MainLayout>

@@ -29,8 +29,8 @@ const Navigation = () => {
                 <DropdownItem href="/Apply">
                   Apply
                 </DropdownItem>
-                <DropdownItem>
-                  Edit Application
+                <DropdownItem href="/charts">
+                  Generate Risk Chart
                 </DropdownItem>
                 <DropdownItem divider />
               </DropdownMenu>

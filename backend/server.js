@@ -3,7 +3,7 @@ const app = express();
 const cors = require('cors');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-
+const nodemailer = require('nodemailer')
 require('dotenv').config();
 
 
@@ -27,9 +27,9 @@ connection.once('open', () => {
 const usersRouter = require('./routes/users.js');
 const informationRouter = require('./routes/information.js');
 
+
 app.use('/users', usersRouter);
 app.use('/information', informationRouter);
-
 app.get('/', (req, res)=> {
     res.send('foobar');
 })
