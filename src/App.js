@@ -87,7 +87,6 @@ height:70%;
 margin: 1rem;
 padding-bottom: 1rem;
 padding: 1rem;
-background:black;
 border:17px inset white;
 color: white;
 font-size: 1.2rem;
@@ -128,7 +127,7 @@ const App = () => {
 	 <Router>
    		<Route path="/Apply" component={Apply} />
 
-	<h1>Mount Wilson Capital</h1>
+	<h1 style={{float: 'right'}}>Mount Wilson Capital</h1>
  	<section> 
     	<ScaledImage src="/images/frontpage.jpg" />
       </section>
