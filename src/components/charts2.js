@@ -2,7 +2,6 @@ import React, { Component} from 'react';
 import axios from "axios";
 import styled from 'styled-components';
 import MainLayout from './MainLayout';
-import DatePicker from 'react-datepicker';
 import {Form, FormGroup, Label, Input, Row, Col, Button, Container, CustomInput} from 'reactstrap';
 
 
@@ -56,7 +55,7 @@ export default class charts2 extends Component {
         axios.get('http://localhost:5000/users/'+this.props.match.params.id)
         .then(res => {
             this.setState({
-
+                username: res.data.username,
                 loanrequest: res.data.loanrequest,
                 creditscore: res.data.creditscore,
                 address: res.data.address,

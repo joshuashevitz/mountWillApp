@@ -1,16 +1,14 @@
 import MainLayout from './MainLayout';
 import axios from 'axios';
-import styled from 'styled-components';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import charts from './charts';
 
 const Applicant = props => (
   <tr>
     <td>{props.users.username}</td>
     <td>{props.users.loanrequest}</td>
     <td>
-      <Link to={"/charts2/"+props.users._id}>generate risk chart</Link> | <a href="#" onClick={() => { props.deleteUsers(props.users._id) }}>delete</a>
+      <Link to={"/charts2/"+props.users._id}>Edit Application Info</Link> | <button href="#" onClick={() => { props.deleteUsers(props.users._id) }}>delete</button> | <Link to={"/charts/"+props.users._id}>Generate Risk Chart</Link>
     </td>
   </tr>
 )

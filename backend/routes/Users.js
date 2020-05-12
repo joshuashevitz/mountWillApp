@@ -15,6 +15,7 @@ router.post('/add', (req, res) => {
         loanrequest: Number(req.body.loanrequest),
         address: req.body.address,
         email: req.body.email,
+        creditscore: req.body.creditscore,
         Date: Date.parse(req.body.Date)
     }
   

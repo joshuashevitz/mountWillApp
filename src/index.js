@@ -5,6 +5,7 @@ import Apply from './components/Apply';
 import contactUs from './components/contactUs';
 import UserList from './components/UserList';
 import charts2 from './components/charts2';
+import charts from './components/charts';
 import {Route, BrowserRouter} from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -21,6 +22,8 @@ ReactDOM.render(
       <Route exact path="/UserList" component={UserList}/>
 
       <Route exact path="/charts2/:id" component={charts2}/>
+
+      <Route exact path="/charts/:id" component={charts}/>
 
     </BrowserRouter>,
   document.getElementById('root')

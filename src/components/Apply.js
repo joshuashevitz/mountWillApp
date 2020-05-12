@@ -2,7 +2,6 @@ import React, { Component} from 'react';
 import axios from "axios";
 import styled from 'styled-components';
 import MainLayout from './MainLayout';
-import DatePicker from 'react-datepicker';
 import {Form, FormGroup, Label, Input, Row, Col, Button, Container, CustomInput} from 'reactstrap';
 
 
@@ -42,6 +41,7 @@ export default class Apply extends Component {
         this.onChangeDate = this.onChangeDate.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
         this.state = {
+            creditscore:800,
             username: '',
             loanrequest: 0,
             address: '',
@@ -109,7 +109,7 @@ export default class Apply extends Component {
                 loanrequest: 0, 
                 address: '',
                 email: '',
-                creditscore: 0,
+                creditscore: 800,
                 date: ''
            })
            console.log(applicant.email);
