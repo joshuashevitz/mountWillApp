@@ -108,7 +108,6 @@ height: 800px;
 `;
 const AboutUs = styled.div`
 margin-top: 15px;
-border: 1px solid white;
 Width: 100vw;
 height: 100%;
 display:inline-block;
